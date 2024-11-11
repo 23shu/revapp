@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Critique Spark</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+        }
+
+        .navbar {
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #6e8efb !important;
+        }
+
+        .nav-link {
+            color: #6e8efb !important;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #a777e3 !important;
+        }
+
+        .form-inline .form-control {
+            border: 2px solid #6e8efb;
+            border-radius: 20px;
+            transition: border-color 0.3s;
+        }
+
+        .form-inline .form-control:focus {
+            border-color: #a777e3;
+        }
+
+        .btn-outline-success {
+            color: #6e8efb;
+            border-color: #6e8efb;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .btn-outline-success:hover {
+            background: #6e8efb;
+            color: white;
+            border-color: #6e8efb;
+        }
+
+        .btn-outline-danger {
+            color: #f44336;
+            border-color: #f44336;
+            border-radius: 20px;
+            margin-left: 10px;
+            transition: all 0.3s;
+        }
+
+        .btn-outline-danger:hover {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
+        }
+
+        .container {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            margin-top: 30px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #6e8efb;
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/">Critique Spark</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login/Signup</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/mypage">My Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/settings">Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/developer">Dev Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/chat">Chat</a>
+                </li>
+            </ul>
+
+            <!-- Search Form -->
+            <form class="form-inline my-2 my-lg-0" action="/search" method="GET">
+                <input class="form-control mr-sm-2" type="search" name="query" placeholder="Search posts..." aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+
+            <!-- Logout Button (conditionally display) -->
+            {% if session['user'] %}
+                <form class="form-inline" action="/logout" method="POST">
+                    <button class="btn btn-outline-danger" type="submit">Logout</button>
+                </form>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% block footer %}
+    <footer>
+        <p>&copy; 2024 Revapp. All Rights Reserved.</p>
+    </footer>
+    {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!-- settings.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Settings</h1>
+    
+    <div class="form-group">
+        <label for="dark-mode-toggle">Dark Mode</label>
+        <input type="checkbox" id="dark-mode-toggle" class="form-control" {% if dark_mode %}checked{% endif %}>
+        <small class="form-text text-muted">Enable dark mode for a better viewing experience at night.</small>
+    </div>
+</div>
+
+
+
+{% endblock %}
+{% block footer %}{% endblock %}

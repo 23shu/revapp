@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center my-4">Create a New Post</h1>
+
+    <!-- Post Creation Form -->
+    <form action="{{ url_for('create_post') }}" method="POST">
+        <div class="form-group">
+            <label for="title">Post Title</label>
+            <input type="text" class="form-control" name="title" id="title" placeholder="Enter post title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Post Description</label>
+            <textarea class="form-control" name="description" id="description" rows="4" placeholder="Enter post description" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="link">Link to the Post</label>
+            <input type="url" class="form-control" name="link" id="link" placeholder="Enter a valid URL" required>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-block">Create Post</button>
+    </form>
+</div>
+{% endblock %}
+{% block footer %}{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+{% block content %}
+<div class="container">
+    <!-- Greet the user directly with their username -->
+{% if username %}
+<h1 class="text-center my-4">Welcome, {{ username }}!</h1>  <!-- Personalized greeting -->
+{% else %}
+<h1 class="text-center my-4">Welcome, guest!</h1>  <!-- Default guest greeting -->
+{% endif %}
+
+    <div class="list-group">
+        {% for post in posts %}
+        <a href="{{ url_for('post_detail', post_id=post.id) }}" class="list-group-item list-group-item-action mb-3">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1" style="color: #6e8efb;">{{ post.title }}</h5>
+                <small>{{ post.upvotes }} Upvotes | {{ post.downvotes }} Downvotes</small>
+            </div>
+            <p class="mb-1">{{ post.description }}</p>
+            <small class="text-muted">Author: {{ post.author }}</small>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

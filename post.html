@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .post-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .vote-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 20px;
+    }
+    .vote-button {
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    .vote-count {
+        margin: 5px 0;
+    }
+    .comment-container {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 10px;
+    }
+    .user-pfp {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    .comment-content {
+        background-color: #f9f9f9;
+        padding: 10px;
+        border-radius: 5px;
+        width: 100%;
+    }
+    .comment-header {
+        font-weight: bold;
+    }
+    .project-link {
+        margin-bottom: 20px;
+    }
+</style>
+
+<h2>{{ post.title }}</h2>
+<p>{{ post.description }}</p>
+<div class="project-link">
+    <a href="{{ post.link }}" target="_blank">Project Link</a>
+</div>
+<div class="post-container">
+    <div class="vote-container">
+        <div id="upvote-btn" class="vote-button btn btn-success">▲</div>
+        <div id="vote-count" class="vote-count">{{ post.upvotes - post.downvotes }}</div>
+        <div id="downvote-btn" class="vote-button btn btn-danger">▼</div>
+    </div>
+    <div>
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.description }}</p>
+    </div>
+</div>
+<h3>Comments</h3>
+<ul>
+    {% for comment in post.comments %}
+    <li class="comment-container">
+        <img src="static/images.png" alt="User Profile Picture" class="user-pfp">
+        <div class="comment-content">
+            <div class="comment-header">{{ comment.username }}</div>
+            <div>{{ comment.text }}</div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+<form action="{{ url_for('add_comment', post_id=post.id) }}" method="POST">
+    <input type="text" name="comment" placeholder="Add a comment" required>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+    document.getElementById('upvote-btn').onclick = function() {
+        fetch('/upvote/{{ post.id }}', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('upvote-btn').style.transform = 'scale(1.1)';
+            document.getElementById('downvote-btn').style.transform = 'scale(1)';
+            setTimeout(() => document.getElementById('upvote-btn').style.transform = 'scale(1)', 200);
+            document.getElementById('vote-count').textContent = data.upvotes - data.downvotes;
+        });
+    }
+    document.getElementById('downvote-btn').onclick = function() {
+        fetch('/downvote/{{ post.id }}', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('downvote-btn').style.transform = 'scale(1.1)';
+            document.getElementById('upvote-btn').style.transform = 'scale(1)';
+            setTimeout(() => document.getElementById('downvote-btn').style.transform = 'scale(1)', 200);
+            document.getElementById('vote-count').textContent = data.upvotes - data.downvotes;
+        });
+    }
+</script>
+{% endblock %}
+
+{% block footer %}{% endblock %}
